@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use App\Http\Requests\ServerFormValidation;
+use Illuminate\Support\Facades\File;
+
 
 class ServerController extends Controller
 {
@@ -14,7 +18,9 @@ class ServerController extends Controller
      */
     public function index()
     {
-        //
+        $games = Game::all();
+        $servers = Server::all();
+        return view('admin.servers.index', compact(['servers', 'games']));
     }
 
     /**
@@ -24,7 +30,8 @@ class ServerController extends Controller
      */
     public function create()
     {
-        //
+        $games = Game::all();
+        return view('admin.servers.add', compact('games'));
     }
 
     /**
@@ -33,9 +40,27 @@ class ServerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServerFormValidation $request)
     {
-        //
+
+        $data = $request->validated();
+
+
+        $server = new Server();
+
+        $server->name = $data['name'];
+        $server->description = $data['description'];
+        $server->game_id = $data['game_id'];
+
+        $file = $request->image;
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move('uploads/servers/', $filename);
+
+        $server->image = $filename;
+
+        $server->save();
+
+        return redirect('admin/servers')->with('message', 'Server Has Been Added Successfuly');
     }
 
     /**
@@ -57,7 +82,8 @@ class ServerController extends Controller
      */
     public function edit(Server $server)
     {
-        //
+        $games = Game::all();
+        return view('admin.servers.edit', compact(['server', 'games']));
     }
 
     /**
@@ -67,9 +93,31 @@ class ServerController extends Controller
      * @param  \App\Models\Server  $server
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Server $server)
+    public function update(ServerFormValidation $request, Server $server)
     {
-        //
+        $data = $request->validated();
+
+        $server->name = $data['name'];
+        $server->description = $data['description'];
+        $server->game_id = $data['game_id'];
+
+        if ($request->hasfile('image')) {
+
+            //Delete the image from upload folder
+            $destination = 'uploads/servers/' . $server->image;
+            if (File::exists($destination)) File::delete($destination);
+
+            //Update the image
+            $file = $request->image;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('uploads/servers/', $filename);
+            $server->image = $filename;
+        }
+
+
+        $server->update();
+
+        return redirect('admin/servers')->with('message', 'Server Has Been Updated Successfuly');
     }
 
     /**
@@ -80,6 +128,11 @@ class ServerController extends Controller
      */
     public function destroy(Server $server)
     {
-        //
+        //Delete the image from upload folder
+        $destination = 'uploads/servers/' . $server->image;
+        if (File::exists($destination)) File::delete($destination);
+
+        $server->delete();
+        return redirect('admin/servers')->with('message', 'Server Has Been Deleted Successfuly');
     }
 }
