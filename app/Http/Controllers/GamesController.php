@@ -53,7 +53,7 @@ class GamesController extends Controller
 
         $game->save();
 
-        return redirect('/games')->with('message', 'Game Has Been Added Successfuly');
+        return redirect('admin/games')->with('message', 'Game Has Been Added Successfuly');
     }
 
     /**
@@ -109,7 +109,7 @@ class GamesController extends Controller
 
         $game->update();
 
-        return redirect('/games')->with('message', 'Game Has Been Updated Successfuly');
+        return redirect('admin/games')->with('message', 'Game Has Been Updated Successfuly');
     }
 
     /**
@@ -125,7 +125,7 @@ class GamesController extends Controller
         if (File::exists($destination)) File::delete($destination);
         
         $game->delete();
-        return redirect('/games')->with('message', 'Game Has Been Deleted Successfuly');
+        return redirect('admin/games')->with('message', 'Game Has Been Deleted Successfuly');
 
     }
 }

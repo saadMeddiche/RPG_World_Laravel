@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin-app')
+
+@section('title','Games | Edit')
 
 @section('content')
     <div class="container">

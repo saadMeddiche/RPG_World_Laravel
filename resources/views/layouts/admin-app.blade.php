@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,19 +20,33 @@
     {{-- CDN-Css Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-    @include('layouts.inc.navbare')
 
-    <div id="app">
+    @include('layouts.inc.admin.navbare')
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <div id="layoutSidenav">
+
+        @include('layouts.inc.admin.sidebare')
+
+        {{-- style="background-image: url({{ asset('assets/img/header-bg.jpg') }});" --}}
+
+        <div id="layoutSidenav_content">
+
+            <main class="mt-4">
+
+                @yield('content')
+
+            </main>
+
+        </div>
     </div>
-
-
 
 
     {{-- CDN-Js Bootstrap --}}
@@ -43,6 +57,8 @@
     {{-- JQuery CDN --}}
     <script src="https://code.jquery.com/jquery-3.6.3.slim.js"
         integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
+
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
 </body>
 
 </html>

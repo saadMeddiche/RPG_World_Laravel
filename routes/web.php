@@ -15,12 +15,21 @@ use App\Http\Controllers\GamesController;
 |
 */
 
+
 Auth::routes();
+
 
 Route::get('/', function () {
     return redirect('home');
 });
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('games', GamesController::class);
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    Route::resource('games', GamesController::class);
+
+    Route::resource('servers', ServerController::class);
+
+    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+});

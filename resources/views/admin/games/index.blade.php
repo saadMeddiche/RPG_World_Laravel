@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.admin-app')
+@section('title','RPG | Games')
 
 @section('content')
     <div class="container" style="max-height:600px; overflow-x: scroll; overflow-y:scroll ">
