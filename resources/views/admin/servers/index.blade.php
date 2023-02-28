@@ -31,15 +31,19 @@
                 @foreach ($servers as $server)
                     <tr>
                         <td>{{ $server->name }}</td>
+
                         <td>
                             <img src="{{ asset('uploads/servers/' . $server->image) }}" width="50" height="50">
                         </td>
+
                         <td>{{ $server->description }}</td>
-                        <td>{{ $server->game_id }}</td>
+
+                        <td>{{ $games->where('id', $server->game_id)->first()->name }}</td>
 
                         <td>
+
                             <div class="d-flex flex-wrap justify-content-start gap-2">
-                                
+
                                 <a href="{{ route('servers.edit', $server->id) }}" class="btn btn-success"><i
                                         class="fas fa-edit"></i></a>
                                 <form action="{{ route('servers.destroy', $server->id) }}" method="POST"
@@ -51,6 +55,7 @@
                                             class="fas fa-trash"></i></button>
                                 </form>
                             </div>
+
                         </td>
 
                     </tr>

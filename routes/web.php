@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\ServerController;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +34,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('servers', ServerController::class);
 
-    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('Game/{game_id}/servers', [GamesController::class, 'showServers'])->name('Game-s-servers');
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

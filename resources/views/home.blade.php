@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('Title', 'RPG | Home')
 @section('content')
     <div class="container">
 
@@ -7,12 +7,13 @@
 
             @foreach ($games as $game)
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ asset('uploads/games/' . $game->image) }}" alt="Card image cap" height="150">
+                    <img class="card-img-top" src="{{ asset('uploads/games/' . $game->image) }}" alt="Card image cap"
+                        height="150">
                     <div class="card-body">
                         <h5 class="card-title">{{ $game->name }}</h5>
                         <p class="card-text">{{ $game->description }}</p>
                         <p class="card-text">30 servers | 500 player</p>
-                        <a href="#" class="btn btn-primary">Explore Servers</a>
+                        <a href="{{ route('Game-s-servers', $game->id) }}" class="btn btn-primary">Explore Servers</a>
                     </div>
                 </div>
             @endforeach

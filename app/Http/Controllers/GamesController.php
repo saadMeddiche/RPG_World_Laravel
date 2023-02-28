@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
-use Illuminate\Support\Facades\File;
+use App\Models\Server;
 use Illuminate\Http\Request;
-use App\Http\Requests\GameFormValidation;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Validator;
+use App\Http\Requests\GameFormValidation;
 
 class GamesController extends Controller
 {
@@ -19,6 +20,13 @@ class GamesController extends Controller
     {
         $games = Game::all();
         return view('admin.games.index', compact('games'));
+    }
+
+    public function showServers($game_id)
+    {
+        $game = Game::find($game_id);
+        $servers = $game->Servers()->get();
+        return view('user.serversOfGame', compact(['servers', 'game']));
     }
 
     /**
@@ -88,7 +96,7 @@ class GamesController extends Controller
      */
     public function update(GameFormValidation $request, Game $game)
     {
-       
+
         $data = $request->validated();
 
         $game->name = $data['name'];
@@ -124,9 +132,8 @@ class GamesController extends Controller
         //Delete the image from upload folder
         $destination = 'uploads/games/' . $game->image;
         if (File::exists($destination)) File::delete($destination);
-        
+
         $game->delete();
         return redirect('admin/games')->with('message', 'Game Has Been Deleted Successfuly');
-
     }
 }
