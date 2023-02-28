@@ -9,6 +9,10 @@
                 <h3>
                     Servers Of {{ $game->name }}
                 </h3>
+                <div class="d-flex">
+                    <input type="text" name="" id="">
+                    <button class=""><i class="fas fa-search"></i></button>
+                </div>
                 <a class="btn btn-primary" href="{{ route('home') }}">Back</a>
             </div>
 
@@ -30,6 +34,7 @@
 
             </div>
         @else
+
             <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                 <h3>
                     {{ $game->name }} Has No Servers Yet :(
