@@ -35,6 +35,7 @@ class GameFormValidation extends FormRequest
                     'max:130'
                 ], 'image' => [
                     'required',
+                    'image',
                     'mimes:jpeg,jpg,png'
                 ],
             ];

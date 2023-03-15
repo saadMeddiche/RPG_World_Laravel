@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('Title', 'RPG | Home')
+@section('Title', $game->name . ' | Servers')
 @section('content')
     <div class="container">
 
@@ -10,8 +10,11 @@
                     Servers Of {{ $game->name }}
                 </h3>
                 <div class="d-flex">
-                    <input type="text" name="" id="">
-                    <button class=""><i class="fas fa-search"></i></button>
+                    <form action="{{ route('Game-s-servers',$game->id) }}" method="get">
+                        @csrf
+                        <input type="text" name="" id="">
+                        <button type="submit" name="search"><i class="fas fa-search"></i></button>
+                    </form>
                 </div>
                 <a class="btn btn-primary" href="{{ route('home') }}">Back</a>
             </div>
@@ -20,8 +23,8 @@
 
                 @foreach ($servers as $server)
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{{ asset('uploads/servers/' . $server->image) }}" alt="Card image cap"
-                            height="150">
+                        <img class="card-img-top" src="{{ asset('uploads/servers/' . $server->image) }}"
+                            alt="Card image cap" height="150">
                         <div class="card-body">
                             <h5 class="card-title">{{ $server->name }}</h5>
                             <p class="card-text">{{ $server->description }}</p>
@@ -34,7 +37,6 @@
 
             </div>
         @else
-
             <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                 <h3>
                     {{ $game->name }} Has No Servers Yet :(

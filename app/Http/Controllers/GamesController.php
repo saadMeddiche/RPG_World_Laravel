@@ -22,6 +22,8 @@ class GamesController extends Controller
         return view('admin.games.index', compact('games'));
     }
 
+
+
     public function showServers($game_id)
     {
         $game = Game::find($game_id);
@@ -31,7 +33,7 @@ class GamesController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     *  
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -47,21 +49,24 @@ class GamesController extends Controller
      */
     public function store(GameFormValidation $request)
     {
+        //====================================First Method============================================
+        // $game = new Game($request->validated());
+        // $file = $request->image;
+        // $filename = time() . '.' . $file->getClientOriginalExtension();
+        // $file->move('uploads/games/', $filename);
+        // $game->image = $filename;
+        // $game->save();
+        //=======================================Second Method=========================================
         $data = $request->validated();
-
-        $game = new Game();
-
-        $game->name = $data['name'];
-        $game->description = $data['description'];
 
         $file = $request->image;
         $filename = time() . '.' . $file->getClientOriginalExtension();
         $file->move('uploads/games/', $filename);
 
-        $game->image = $filename;
+        $data['image'] = $filename;
 
-        $game->save();
-
+        Game::create($data);
+        //===================================================================================
         return redirect('admin/games')->with('message', 'Game Has Been Added Successfuly');
     }
 
@@ -73,7 +78,6 @@ class GamesController extends Controller
      */
     public function show(Game $game)
     {
-        //
     }
 
     /**
@@ -99,9 +103,6 @@ class GamesController extends Controller
 
         $data = $request->validated();
 
-        $game->name = $data['name'];
-        $game->description = $data['description'];
-
         if ($request->hasfile('image')) {
 
             //Delete the image from upload folder
@@ -112,11 +113,10 @@ class GamesController extends Controller
             $file = $request->image;
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/games/', $filename);
-            $game->image = $filename;
+            $data["image"] = $filename;
         }
 
-
-        $game->update();
+        $game->update($data);
 
         return redirect('admin/games')->with('message', 'Game Has Been Updated Successfuly');
     }
