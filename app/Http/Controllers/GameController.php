@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\GameRequestValidation;
 
 class GameController extends Controller
 {
@@ -21,7 +23,7 @@ class GameController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(GameRequestValidation $request)
     {
         $data = $request->validated();
 
@@ -37,9 +39,9 @@ class GameController extends Controller
         return response()->json($responce, 200);
     }
 
+
     public function show(Game $game)
     {
-
         $responce = [
             'success' => true,
             'game' => $game
@@ -49,7 +51,7 @@ class GameController extends Controller
     }
 
 
-    public function update(Request $request, Game $game)
+    public function update(GameRequestValidation $request, Game $game)
     {
         $data = $request->validated();
 

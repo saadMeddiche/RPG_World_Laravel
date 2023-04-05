@@ -37,7 +37,7 @@ class ServerRequestValidation extends FormRequest
                 "max:220"
             ],
             'image' => [
-                filled($_POST["update"]) ? 'nullable' : 'required',
+                request()->isMethod('POST') ? 'required' : 'nullable',
                 'mimes:jpeg,jpg,png'
             ],
             'game_id' => [

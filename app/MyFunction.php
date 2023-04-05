@@ -16,3 +16,4 @@ function delete_image($image)
     $destination = 'uploads/games/' . $image;
     if (File::exists($destination)) File::delete($destination);
 }
+

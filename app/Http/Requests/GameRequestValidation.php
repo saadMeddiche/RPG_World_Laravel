@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Rule;
 
 class GameRequestValidation extends FormRequest
 {
@@ -27,6 +28,7 @@ class GameRequestValidation extends FormRequest
     public function rules()
     {
 
+
         return [
             'name' => [
                 'required',
@@ -38,7 +40,7 @@ class GameRequestValidation extends FormRequest
                 "max:220"
             ],
             'image' => [
-                filled($_POST["update"]) ? 'nullable' : 'required',
+                request()->isMethod('POST') ? 'required' : 'nullable',
                 'image',
                 'mimes:jpeg,jpg,png'
             ]

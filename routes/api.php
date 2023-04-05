@@ -24,8 +24,6 @@ Route::group(['prefix' => 'V1'], function () {
 
     Route::apiResource('games', GameController::class);
     Route::apiResource('servers', ServerController::class);
-    
     Route::group(['middleware' => ['auth:sanctum']], function () {
-       
     });
 });

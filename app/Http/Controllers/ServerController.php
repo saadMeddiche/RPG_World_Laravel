@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use App\Http\Requests\ServerRequestValidation;
 
 class ServerController extends Controller
 {
@@ -15,14 +16,14 @@ class ServerController extends Controller
 
         $responce = [
             'success' => true,
-            'games' => $servers
+            'servers' => $servers
         ];
 
         return response()->json($responce, 200);
     }
 
 
-    public function store(Request $request)
+    public function store(ServerRequestValidation $request)
     {
         $data = $request->validated();
 
@@ -50,7 +51,7 @@ class ServerController extends Controller
     }
 
 
-    public function update(Request $request, Server $server)
+    public function update(ServerRequestValidation $request, Server $server)
     {
         $data = $request->validated();
 
