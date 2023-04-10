@@ -33,8 +33,7 @@ class GameRequestValidation extends FormRequest
         return [
             'name' => [
                 'required',
-                // ($this->method === 'post') ? 'unique:games,name' : 'unique:games,name,' . $this->game->id,
-                //request()->isMethod('POST') ? 'unique:games,name' : 'unique:games,name,' . $this->game->id,
+                ($this->input('method') == 'post') ? 'unique:games,name' : 'unique:games,name,' . $this->game->id,
                 'max:20',
             ],
             'description' => [
@@ -42,10 +41,8 @@ class GameRequestValidation extends FormRequest
                 'max:220'
             ],
             'image' => [
-                (isset($this->method) && $this->method === 'post') ? 'required' : 'nullable',
-                //request()->isMethod('PUT') ? 'required' : 'nullable',
-                'image',
-                'mimes:jpeg,jpg,png'
+                ($this->input('method') == 'post') ? 'required' : 'nullable',
+                'mimes:jpeg,jpg,png',
             ]
         ];
     }
@@ -55,6 +52,7 @@ class GameRequestValidation extends FormRequest
         $response = new JsonResponse([
             'success' => false,
             'errors' => $validator->errors(),
+
         ], 401);
 
         throw new HttpResponseException($response);

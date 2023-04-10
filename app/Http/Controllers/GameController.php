@@ -60,13 +60,15 @@ class GameController extends Controller
         if ($request->hasfile('image')) {
             delete_image($game->image);
             $data["image"] = treat_image($request->image);
+        } else {
+            $data["image"] = $game->image;
         }
 
         $game->update($data);
 
-
         $responce = [
             'success' => true,
+            'data' => $data
         ];
 
         return response()->json($responce, 200);
