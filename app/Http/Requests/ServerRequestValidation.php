@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ServerRequestValidation extends FormRequest
 {
@@ -29,7 +29,7 @@ class ServerRequestValidation extends FormRequest
         return [
             'name' => [
                 'required',
-                ($this->input('method') == 'post') ? 'unique:servers,name' : 'unique:servers,name,' . $this->server->id,
+                ($this->input('method') == 'post') ? 'unique:servers,name' : '',
                 'max:20',
             ],
             'description' => [

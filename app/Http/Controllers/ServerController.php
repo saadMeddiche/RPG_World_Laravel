@@ -57,6 +57,15 @@ class ServerController extends Controller
 
         $server = Server::find($id);
 
+        if (Server::where('name', $request->name)->first()) {
+            $responce = [
+                'success' => false,
+                'errors' => [['This name is already taken']]
+            ];
+
+            return response()->json($responce, 401);
+        }
+
 
         if ($request->hasfile('image')) {
             delete_image($server->image);
