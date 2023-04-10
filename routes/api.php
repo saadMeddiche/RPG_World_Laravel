@@ -26,8 +26,12 @@ Route::group(['prefix' => 'V1'], function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 
+    //Route::apiResource('games', GameController::class);
 
-    Route::apiResource('games', GameController::class);
+    Route::apiResource('games', GameController::class)->except('update');
+    Route::post('games/{id}', [GameController::class, 'update']);
+
+
     Route::apiResource('servers', ServerController::class);
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

@@ -51,9 +51,11 @@ class GameController extends Controller
     }
 
 
-    public function update(GameRequestValidation $request, Game $game)
+    public function update(GameRequestValidation $request, $id)
     {
         $data = $request->validated();
+
+        $game = Game::find($id);
 
         if ($request->hasfile('image')) {
             delete_image($game->image);
@@ -61,6 +63,7 @@ class GameController extends Controller
         }
 
         $game->update($data);
+
 
         $responce = [
             'success' => true,
