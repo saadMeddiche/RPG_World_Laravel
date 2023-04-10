@@ -57,7 +57,7 @@ class ServerController extends Controller
 
         $server = Server::find($id);
 
-        if (Server::where('name', $request->name)->first()) {
+        if (Server::where('name', $request->name)->first() && $request->name != $server->name) {
             $responce = [
                 'success' => false,
                 'errors' => [['This name is already taken']]
