@@ -29,16 +29,16 @@ class ServerRequestValidation extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:servers,name',
-                "max:20"
+                ($this->input('method') == 'post') ? 'unique:servers,name' : 'unique:servers,name,' . $this->server->id,
+                'max:20',
             ],
             'description' => [
                 'required',
-                "max:220"
+                'max:220'
             ],
             'image' => [
-                request()->isMethod('POST') ? 'required' : 'nullable',
-                'mimes:jpeg,jpg,png'
+                ($this->input('method') == 'post') ? 'required' : 'nullable',
+                'mimes:jpeg,jpg,png',
             ],
             'game_id' => [
                 'exists:games,id'

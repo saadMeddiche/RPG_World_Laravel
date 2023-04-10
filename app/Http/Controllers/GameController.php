@@ -68,7 +68,6 @@ class GameController extends Controller
 
         $responce = [
             'success' => true,
-            'data' => $data
         ];
 
         return response()->json($responce, 200);

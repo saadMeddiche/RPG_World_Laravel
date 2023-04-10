@@ -51,13 +51,18 @@ class ServerController extends Controller
     }
 
 
-    public function update(ServerRequestValidation $request, Server $server)
+    public function update(ServerRequestValidation $request, $id)
     {
         $data = $request->validated();
+
+        $server = Server::find($id);
+
 
         if ($request->hasfile('image')) {
             delete_image($server->image);
             $data["image"] = treat_image($request->image);
+        } else {
+            $data["image"] = $server->image;
         }
 
         $server->update($data);
