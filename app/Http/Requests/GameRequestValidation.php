@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+// use App\Models\Game;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -32,12 +33,12 @@ class GameRequestValidation extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:games,name',
-                "max:20",
+                request()->isMethod('POST') ? 'unique:games,name' : 'unique:games,name,' . $this->game->id,
+                'max:20',
             ],
             'description' => [
                 'required',
-                "max:220"
+                'max:220'
             ],
             'image' => [
                 request()->isMethod('POST') ? 'required' : 'nullable',
