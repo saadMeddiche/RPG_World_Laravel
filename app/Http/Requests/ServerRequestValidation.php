@@ -36,6 +36,9 @@ class ServerRequestValidation extends FormRequest
                 'required',
                 'max:220'
             ],
+            'address' => [
+                'nullable',
+            ],
             'image' => [
                 ($this->input('method') == 'post') ? 'required' : 'nullable',
                 'mimes:jpeg,jpg,png',

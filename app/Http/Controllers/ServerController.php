@@ -33,7 +33,8 @@ class ServerController extends Controller
 
         $responce = [
             'success' => true,
-            'server' => $server
+            'server' => $server,
+            'data' => $data
         ];
 
         return response()->json($responce, 200);
