@@ -57,6 +57,15 @@ class GameController extends Controller
 
         $game = Game::find($id);
 
+        if (Game::where('name', $request->name)->first() && $request->name != $game->name) {
+            $responce = [
+                'success' => false,
+                'errors' => [['This name is already taken']]
+            ];
+
+            return response()->json($responce, 401);
+        }
+
         if ($request->hasfile('image')) {
             delete_image($game->image);
             $data["image"] = treat_image($request->image);

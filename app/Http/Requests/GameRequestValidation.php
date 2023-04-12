@@ -33,7 +33,7 @@ class GameRequestValidation extends FormRequest
         return [
             'name' => [
                 'required',
-                ($this->input('method') == 'post') ? 'unique:games,name' : 'unique:games,name,' . $this->game->id,
+                ($this->input('method') == 'post') ? 'unique:games,name' : '',
                 'max:20',
             ],
             'description' => [
