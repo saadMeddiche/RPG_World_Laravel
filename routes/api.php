@@ -27,20 +27,21 @@ Route::group(['prefix' => 'V1'], function () {
     //=================Authentification======================
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::post('logout', [AuthController::class, 'logout']);
-    });
 
     //=================Games======================
     Route::apiResource('games', GameController::class)->except('update');
     Route::post('games/{id}', [GameController::class, 'update']);
-    Route::get('countOfGames', [GameController::class, 'count']);
 
-    //=================Servers======================
-    Route::apiResource('servers', ServerController::class)->except('update');
-    Route::post('servers/{id}', [ServerController::class, 'update']);
-    Route::get('countOfServers', [ServerController::class, 'count']);
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('logout', [AuthController::class, 'logout']);
 
-    //=================Users======================
-    Route::get('countOfUsers', [UserController::class, 'count']);
+        //=================Servers======================
+        Route::apiResource('servers', ServerController::class)->except('update');
+        Route::post('servers/{id}', [ServerController::class, 'update']);
+        Route::get('countOfServers', [ServerController::class, 'count']);
+
+        //==============Counts====================
+        Route::get('countOfGames', [GameController::class, 'count']);
+        Route::get('countOfUsers', [UserController::class, 'count']);
+    });
 });
