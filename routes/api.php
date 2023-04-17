@@ -28,10 +28,13 @@ Route::group(['prefix' => 'V1'], function () {
 
     Route::apiResource('games', GameController::class)->except('update');
     Route::post('games/{id}', [GameController::class, 'update']);
+    Route::get('countOfGames', [GameController::class, 'count']);
 
 
     Route::apiResource('servers', ServerController::class)->except('update');
     Route::post('servers/{id}', [ServerController::class, 'update']);
+    Route::get('countOfServers', [ServerController::class, 'count']);
+
 
 
     Route::group(['middleware' => ['auth:sanctum']], function () {

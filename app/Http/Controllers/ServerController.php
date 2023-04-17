@@ -97,4 +97,20 @@ class ServerController extends Controller
 
         return response()->json($responce, 200);
     }
+
+    //Returns a JSON response containing the count of servers
+    public function count()
+    {
+        //Get the count of servers
+        $count_of_servers = Server::count();
+
+        //Construct a response object containing the count of servers
+        $response = [
+            'success' => true,
+            'count' => $count_of_servers
+        ];
+
+        //Return the response as a JSON object with HTTP status code 200 (OK)
+        return response()->json($response, 200);
+    }
 }
