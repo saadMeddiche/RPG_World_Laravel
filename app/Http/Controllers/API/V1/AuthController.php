@@ -27,7 +27,8 @@ class AuthController extends Controller
             $response = [
                 'success' => true,
                 'user' => $user,
-                'token' => $token->plainTextToken
+                'token' => $token->plainTextToken,
+                // 'role' => $user->getRoleNames()->pluck('name')->toArray()
             ];
 
             return response()->json($response, 200);
