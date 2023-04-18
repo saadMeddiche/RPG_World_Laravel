@@ -63,6 +63,9 @@ class RolesAndPermissions extends Command
         //Access To All
         $accessToAll = Permission::create(['name' => '*', 'guard_name' => 'web']);
 
+        //Dashboard Permission (Visibility)
+        $accessDashboard = Permission::create(['name' => 'accessDashboard', 'guard_name' => 'web']);
+
         //=================Create Roles=================
         //========Staff
         $Lead_Admin_Role = Role::create(['name' => 'Lead_Admin', 'guard_name' => 'web']);
@@ -73,11 +76,10 @@ class RolesAndPermissions extends Command
         $Muted_Role = Role::create(['name' => 'Muted', 'guard_name' => 'web']);
 
 
-
         //Assign Permissions to roles
         $Lead_Admin_Role->givePermissionTo($accessToAll);
-        $Senior_Admin_Role->givePermissionTo([$Manage_Games, $Manage_Servers]);
-        $Admin_Role->givePermissionTo([$Manage_Servers]);
+        $Senior_Admin_Role->givePermissionTo([$Manage_Games, $Manage_Servers ,$accessDashboard]);
+        $Admin_Role->givePermissionTo([$Manage_Servers , $accessDashboard]);
         $Member_Role->givePermissionTo([$Show_Servers, $Show_Server, $Show_Games, $Show_Game]);
 
         // Create Users

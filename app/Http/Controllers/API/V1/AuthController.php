@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginFormValidation;
 use App\Http\Requests\RegisterFormValidation;
 use GrahamCampbell\ResultType\Success;
+use Spatie\Permission\Models\Role;
+
 
 class AuthController extends Controller
 {
@@ -28,7 +30,6 @@ class AuthController extends Controller
                 'success' => true,
                 'user' => $user,
                 'token' => $token->plainTextToken,
-                // 'role' => $user->getRoleNames()->pluck('name')->toArray()
             ];
 
             return response()->json($response, 200);
@@ -52,6 +53,9 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
+
+
+        $user->assignRole('Member');
 
         $token = $user->createToken('ProjectToken');
 

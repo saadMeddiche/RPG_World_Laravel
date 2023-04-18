@@ -6,6 +6,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,7 @@ Route::group(['prefix' => 'V1'], function () {
         Route::get('countOfGames', [GameController::class, 'count']);
         Route::get('countOfUsers', [UserController::class, 'count']);
         Route::get('countOfServers', [ServerController::class, 'count']);
+
+        Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
     });
 });
