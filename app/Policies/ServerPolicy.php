@@ -15,7 +15,7 @@ class ServerPolicy
         return $user->hasPermissionTo('Show-Servers') || $user->hasPermissionTo('*');
     }
 
-    public function view(User $user, Server $server)
+    public function view(User $user)
     {
         return $user->hasPermissionTo('Show-Server') || $user->hasPermissionTo('*');
     }
@@ -25,12 +25,12 @@ class ServerPolicy
         return $user->hasPermissionTo('Add-Server') || $user->hasPermissionTo('*');
     }
 
-    public function update(User $user, Server $server)
+    public function update(User $user)
     {
         return $user->hasPermissionTo('Update-Server') || $user->hasPermissionTo('*');
     }
 
-    public function delete(User $user, Server $server)
+    public function delete(User $user)
     {
         return $user->hasPermissionTo('Delete-Server') || $user->hasPermissionTo('*');
     }

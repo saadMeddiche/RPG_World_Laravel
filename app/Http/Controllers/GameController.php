@@ -13,6 +13,9 @@ class GameController extends Controller
     //Returns a JSON response containing all games in the database
     public function index()
     {
+
+        $this->authorize('viewAny', Game::class);
+
         //Fetch all games from the database using the 'all' method from the Eloquent ORM
         $games = Game::all();
 
@@ -29,6 +32,9 @@ class GameController extends Controller
     //Stores a new game in the database and returns a JSON response containing the new game
     public function store(GameRequestValidation $request)
     {
+
+        $this->authorize('create', Game::class);
+
         //Get the validated data from the 'GameRequestValidation' object and assign it to a variable
         $data = $request->validated();
 
@@ -53,6 +59,9 @@ class GameController extends Controller
     //Returns a JSON response containing the specified game
     public function show(Game $game)
     {
+
+        $this->authorize('view', Game::class);
+
         //Construct a response object containing the specified game
         $responce = [
             'success' => true,
@@ -66,6 +75,9 @@ class GameController extends Controller
     //Updates an existing game in the database and returns a JSON response
     public function update(GameRequestValidation $request, $id)
     {
+
+        $this->authorize('update', Game::class);
+
         // Get the validated data from the request
         $data = $request->validated();
 
@@ -106,6 +118,9 @@ class GameController extends Controller
     // Delete a game from the database and return a JSON response
     public function destroy(Game $game)
     {
+
+        $this->authorize('delete', Game::class);
+
         // Delete the game image from the uploads folder
         delete_image($game->image);
 

@@ -28,13 +28,13 @@ Route::group(['prefix' => 'V1'], function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 
-    Route::get('games', [GameController::class, 'index']); // No Need For Auth
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('logout', [AuthController::class, 'logout']);
 
+
         //=================Games======================
-        Route::apiResource('games', GameController::class)->except(['update', 'index']);
+        Route::apiResource('games', GameController::class)->except('update');
         Route::post('games/{id}', [GameController::class, 'update']);
 
         //=================Servers======================
