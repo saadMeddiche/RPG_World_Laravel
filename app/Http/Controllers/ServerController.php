@@ -12,6 +12,8 @@ class ServerController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Server::class);
+
         $servers = Server::all();
 
         $responce = [
@@ -25,6 +27,8 @@ class ServerController extends Controller
 
     public function store(ServerRequestValidation $request)
     {
+        $this->authorize('create', Server::class);
+
         $data = $request->validated();
 
         $data['image'] = treat_image($request->image);
@@ -43,6 +47,8 @@ class ServerController extends Controller
 
     public function show(Server $server)
     {
+        $this->authorize('view', Server::class);
+
         $responce = [
             'success' => true,
             'server' => $server
@@ -54,6 +60,8 @@ class ServerController extends Controller
 
     public function update(ServerRequestValidation $request, $id)
     {
+        $this->authorize('update', Server::class);
+
         $data = $request->validated();
 
         $server = Server::find($id);
@@ -87,6 +95,8 @@ class ServerController extends Controller
 
     public function destroy(Server $server)
     {
+        $this->authorize('delete', Server::class);
+
         delete_image($server->image);
 
         $server->delete();
