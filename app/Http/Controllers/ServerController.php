@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ServerRequestValidation;
 
 class ServerController extends Controller
@@ -32,6 +33,7 @@ class ServerController extends Controller
         $data = $request->validated();
 
         $data['image'] = treat_image($request->image);
+        $data['user_id'] = auth()->id();
 
         $server = Server::create($data);
 

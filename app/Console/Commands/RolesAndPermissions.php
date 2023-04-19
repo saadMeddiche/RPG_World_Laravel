@@ -78,9 +78,9 @@ class RolesAndPermissions extends Command
 
         //Assign Permissions to roles
         $Lead_Admin_Role->givePermissionTo($accessToAll);
-        $Senior_Admin_Role->givePermissionTo([$Manage_Games, $Manage_Servers ,$accessDashboard]);
-        $Admin_Role->givePermissionTo([$Manage_Servers , $accessDashboard]);
-        $Member_Role->givePermissionTo([$Show_Servers, $Show_Server, $Show_Games, $Show_Game]);
+        $Senior_Admin_Role->givePermissionTo([$Manage_Games, $Manage_Servers, $accessDashboard]);
+        $Admin_Role->givePermissionTo([$Manage_Servers, $accessDashboard]);
+        $Member_Role->givePermissionTo([$Show_Servers, $Show_Server, $Show_Games, $Show_Game, $Add_Server]);
 
         // Create Users
         $users = [
@@ -106,6 +106,11 @@ class RolesAndPermissions extends Command
         $Lead_Admin->assignRole($Lead_Admin_Role);
         $Senior_Admin->assignRole($Senior_Admin_Role);
         $Admin->assignRole($Admin_Role);
+
+        $Lead_Admin->assignRole($Member_Role);
+        $Senior_Admin->assignRole($Member_Role);
+        $Admin->assignRole($Member_Role);
+
         $Aziz->assignRole($Member_Role);
         $Hassan->assignRole($Member_Role);
 

@@ -14,6 +14,7 @@ class Server extends Model
         'description',
         'image',
         'address',
-        'game_id'
+        'game_id',
+        'user_id'
     ];
 }
