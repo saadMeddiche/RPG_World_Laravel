@@ -47,5 +47,6 @@ Route::group(['prefix' => 'V1'], function () {
         Route::get('countOfServers', [ServerController::class, 'count']);
 
         Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
+        Route::post('UserInformation', [UserController::class, 'user_information']);
     });
 });
