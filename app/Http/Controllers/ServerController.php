@@ -62,11 +62,13 @@ class ServerController extends Controller
 
     public function update(ServerRequestValidation $request, $id)
     {
-        $this->authorize('update', Server::class);
 
         $data = $request->validated();
 
         $server = Server::find($id);
+
+        $this->authorize('update', $server);
+
 
         if (Server::where('name', $request->name)->first() && $request->name != $server->name) {
             $responce = [
@@ -97,7 +99,7 @@ class ServerController extends Controller
 
     public function destroy(Server $server)
     {
-        $this->authorize('delete', Server::class);
+        $this->authorize('delete', $server);
 
         delete_image($server->image);
 

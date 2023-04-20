@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Laravel\Sanctum\PersonalAccessToken;
-
+use Spatie\Permission\Contracts\Permission;
 
 class UserController extends Controller
 {
@@ -39,6 +39,20 @@ class UserController extends Controller
         ];
 
         //Return the response as a JSON object with HTTP status code 200 (OK)
+        return response()->json($response, 200);
+    }
+
+    public function test(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        $permissions = $user->getPermissionsViaRoles();
+
+        $response = [
+            'success' => true,
+            'user' => $permissions
+        ];
+
         return response()->json($response, 200);
     }
 }

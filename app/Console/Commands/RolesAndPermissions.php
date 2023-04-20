@@ -80,7 +80,7 @@ class RolesAndPermissions extends Command
         $Lead_Admin_Role->givePermissionTo($accessToAll);
         $Senior_Admin_Role->givePermissionTo([$Manage_Games, $Manage_Servers, $accessDashboard]);
         $Admin_Role->givePermissionTo([$Manage_Servers, $accessDashboard]);
-        $Member_Role->givePermissionTo([$Show_Servers, $Show_Server, $Show_Games, $Show_Game, $Add_Server]);
+        $Member_Role->givePermissionTo([$Show_Servers, $Show_Server, $Show_Games, $Show_Game, $Add_Server, $Update_Server, $Delete_Server]);
 
         // Create Users
         $users = [

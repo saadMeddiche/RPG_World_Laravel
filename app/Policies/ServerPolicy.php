@@ -25,13 +25,13 @@ class ServerPolicy
         return $user->hasPermissionTo('Add-Server') || $user->hasPermissionTo('*') || $user->hasPermissionTo('Manage-Servers');
     }
 
-    public function update(User $user)
+    public function update(User $user, Server $server)
     {
-        return $user->hasPermissionTo('Update-Server') || $user->hasPermissionTo('*') || $user->hasPermissionTo('Manage-Servers');
+        return  $user->hasPermissionTo('Update-Server') && $user->id == $server->user_id || $user->hasPermissionTo('*') || $user->hasPermissionTo('Manage-Servers');
     }
 
-    public function delete(User $user)
+    public function delete(User $user, Server $server)
     {
-        return $user->hasPermissionTo('Delete-Server') || $user->hasPermissionTo('*') || $user->hasPermissionTo('Manage-Servers');
+        return $user->hasPermissionTo('Delete-Server') && $user->id == $server->user_id || $user->hasPermissionTo('*') || $user->hasPermissionTo('Manage-Servers');
     }
 }
