@@ -49,6 +49,8 @@ Route::group(['prefix' => 'V1'], function () {
         Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
         Route::post('UserInformation', [UserController::class, 'user_information']);
 
+        Route::get('UsersInfomraion' , [UserController::class ,'Users']);
+
         Route::post('test', [UserController::class, 'test']);
     });
 });

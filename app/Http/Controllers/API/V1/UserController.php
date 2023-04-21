@@ -42,6 +42,18 @@ class UserController extends Controller
         return response()->json($response, 200);
     }
 
+    public function Users()
+    {
+        $users = User::with('roles:id,name')->get();
+
+        $response = [
+            'success' => true,
+            'users' => $users
+        ];
+
+        return response()->json($response, 200);
+    }
+
     public function test(Request $request)
     {
         $user = User::find($request->user_id);
