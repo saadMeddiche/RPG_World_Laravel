@@ -46,11 +46,9 @@ class UserController extends Controller
     {
         $user = PersonalAccessToken::findToken($request->token)->tokenable;
 
-        $users = User::with('roles:id,name')->get();
-
-        $users = $users->reject(function ($u) use ($user) {
-            return $u->id === $user->id;
-        });
+        $users = User::whereNotIn('id', [$user->id])
+            ->with('roles:id,name')
+            ->get();
 
         $response = [
             'success' => true,
