@@ -12,7 +12,7 @@ class RoleController extends Controller
     public function index()
     {
         //Policie
-        // $this->authorize('viewAny', Role::class);
+        $this->authorize('viewAny', Role::class);
 
         $roles = Role::all();
 
@@ -22,7 +22,7 @@ class RoleController extends Controller
     public function assignRole(Request $request)
     {
         //Policie
-        // $this->authorize('assignRole', Role::class);
+        $this->authorize('assignRole', Role::class);
 
         $user = User::where('id', $request->user_id)->first();
         if (!$user) return  response()->json(['errors' => 'User Not Found'], 401);
@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function RemoveRole(Request $request)
     {
         //Policie
-        // $this->authorize('RemoveRole', Role::class);
+        $this->authorize('RemoveRole', Role::class);
 
         $user = User::find($request->user_id);
         if (!$user) return  response()->json(['errors' => 'User Not Found'], 401);
