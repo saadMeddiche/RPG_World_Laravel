@@ -48,21 +48,20 @@ Route::group(['prefix' => 'V1'], function () {
 
         /*================================Users================================*/
         Route::post('UserInformation', [UserController::class, 'user_information']);
-        Route::get('UsersInfomraion', [UserController::class, 'Users']);
+        Route::post('UsersInfomraion', [UserController::class, 'Users']);
 
         /*================================Roles================================*/
         /* Show All Role */
         Route::get('Roles', [RoleController::class, 'index']);
 
         /* Assign Role to User */
-        Route::post('Role/assignRole', [RoleController::class, 'assignRole']);
+        Route::post('Roles/assignRole', [RoleController::class, 'assignRole']);
 
         /* Remove Role from a user */
-        Route::post('Role/RemoveRole', [RoleController::class, 'RemoveRole']);
+        Route::post('Roles/RemoveRole', [RoleController::class, 'RemoveRole']);
 
         /*================================No Categorie================================*/
         Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
         Route::post('test', [UserController::class, 'test']);
-        
     });
 });

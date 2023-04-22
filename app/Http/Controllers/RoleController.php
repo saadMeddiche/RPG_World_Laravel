@@ -32,7 +32,7 @@ class RoleController extends Controller
 
         $user->assignRole($role);
 
-        return response()->json(['message' => 'Role assigned successfuly']);
+        return response()->json(['message' => 'Role assigned successfuly'], 200);
     }
 
     public function RemoveRole(Request $request)
@@ -48,7 +48,7 @@ class RoleController extends Controller
 
         $user->removeRole($role);
 
-        return response()->json(['message' => 'Role removed successfuly']);
+        return response()->json(['message' => 'Role removed successfuly'], 200);
     }
 
     public function verify_staff_access(Request $request)

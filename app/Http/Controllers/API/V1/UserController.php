@@ -42,9 +42,15 @@ class UserController extends Controller
         return response()->json($response, 200);
     }
 
-    public function Users()
+    public function Users(Request $request)
     {
+        $user = PersonalAccessToken::findToken($request->token)->tokenable;
+
         $users = User::with('roles:id,name')->get();
+
+        $users = $users->reject(function ($u) use ($user) {
+            return $u->id === $user->id;
+        });
 
         $response = [
             'success' => true,
