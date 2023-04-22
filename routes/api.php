@@ -33,24 +33,36 @@ Route::group(['prefix' => 'V1'], function () {
         Route::post('logout', [AuthController::class, 'logout']);
 
 
-        //=================Games======================
+        /*================================Games================================*/
         Route::apiResource('games', GameController::class)->except('update');
         Route::post('games/{id}', [GameController::class, 'update']);
 
-        //=================Servers======================
+        /*================================Servers================================*/
         Route::apiResource('servers', ServerController::class)->except('update');
         Route::post('servers/{id}', [ServerController::class, 'update']);
 
-        //==============Counts====================
+        /*================================Counts================================*/
         Route::get('countOfGames', [GameController::class, 'count']);
         Route::get('countOfUsers', [UserController::class, 'count']);
         Route::get('countOfServers', [ServerController::class, 'count']);
 
-        Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
+        /*================================Users================================*/
         Route::post('UserInformation', [UserController::class, 'user_information']);
+        Route::get('UsersInfomraion', [UserController::class, 'Users']);
 
-        Route::get('UsersInfomraion' , [UserController::class ,'Users']);
+        /*================================Roles================================*/
+        /* Show All Role */
+        Route::get('Roles', [RoleController::class, 'index']);
 
+        /* Assign Role to User */
+        Route::post('Role/assignRole', [RoleController::class, 'assignRole']);
+
+        /* Remove Role from a user */
+        Route::post('Role/RemoveRole', [RoleController::class, 'RemoveRole']);
+
+        /*================================No Categorie================================*/
+        Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
         Route::post('test', [UserController::class, 'test']);
+        
     });
 });
