@@ -60,6 +60,9 @@ Route::group(['prefix' => 'V1'], function () {
         /* Remove Role from a user */
         Route::post('Roles/RemoveRole', [RoleController::class, 'RemoveRole']);
 
+        /*================================Account================================*/
+        Route::post('Account/Update', [UserController::class, 'update_user_informations']);
+
         /*================================No Categorie================================*/
         Route::post('DashboardAccess', [RoleController::class, 'verify_staff_access']);
         Route::post('test', [UserController::class, 'test']);

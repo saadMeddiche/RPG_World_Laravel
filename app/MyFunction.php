@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 //This function renames the input file with a unique name and moves it to the uploads directory
 function treat_image($file)
@@ -27,4 +28,18 @@ function delete_image($image)
         // If the file exists, delete it using the File::delete method from the Laravel framework
         File::delete($destination);
     }
+}
+
+function check_current_password($user_password, $current_password)
+{
+    if (!Hash::check($current_password, $user_password)) return false;
+
+    return true;
+}
+
+function check_new_password($new_password, $repeat_password)
+{
+    if ($new_password != $repeat_password) return false;
+
+    return true;
 }
