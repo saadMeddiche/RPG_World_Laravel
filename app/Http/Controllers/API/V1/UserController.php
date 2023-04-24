@@ -34,6 +34,10 @@ class UserController extends Controller
 
         $user = PersonalAccessToken::findToken($request->token)->tokenable;
 
+        $roles = $user->roles()->pluck('name');
+
+        $user["roles"] = $roles;
+
         //Construct a response object containing the informations of users
         $response = [
             'success' => true,
